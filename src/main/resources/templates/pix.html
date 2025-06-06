@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a65b8e87b1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{style.css}">
+    <title>Banco Bradesco</title>
+</head>
+<body>
+    <section class="tela-base" id="base-tela-principal">
+        <div class="bg-red-content-box pix-content-box">
+            <div class="return"><a href="/">< Voltar</a></div>
+            <div class="pix-content">
+                <div class="title-texto">
+                    <span>Área PIX</span>
+                </div><!--TITULO PIX-->
+                <div class="form-pix-container">
+                    <form method="post" action="/pix" class="form-pix">
+
+                        <input type="text" id="chave-pix" name="chave-pix" placeholder="Chave Pix">
+                        <input type="number" id="valor-pix" name="valor-pix" placeholder="Valor">
+                        <input type="button" value="Enviar Pix" name="acao">
+
+                    </form>
+                </div><!--CONTAINER DO FOMRULARIO PIX-->
+            </div><!--PIX CONTENT-->
+        </div><!--PIX TELA PRINCIPAL-->
+    </section><!--TELA BASE-->
+</body>
+</html>

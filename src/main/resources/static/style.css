@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --red-color-main: rgba(214, 41, 41, 1);
+    --red-gradient: linear-gradient(25deg,rgba(191, 40, 40, 1) 0%, rgba(214, 41, 41, 1) 50%, rgba(237, 83, 104, 1) 100%);
+    --border-radius-btns: 14px;
+}
+
+.w50 {width: 49%;}
+.w100 {width: 100%;}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #e3e3e3;
+    overflow: hidden;
+    font-family: "Open Sans", sans-serif;
+}
+
+section#base-tela-principal {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background: white;
+    width: 430px;
+    height: 100%;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, .17);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-container i {
+    color: white;
+    font-size: 20px;
+}
+
+.bg-red-content-box {
+    width: 100%;
+    background: var(--red-gradient);
+}
+
+.main-content-box {
+    padding: 40px;
+    border-radius: 0 0 30px 30px;
+    min-height: 300px;
+}
+
+.txt-wlcm {
+    color: white;
+    font-size: 16px;
+    margin: 50px 0 20px 0;
+}
+
+.saldo-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.saldo-container > span {
+    color: white;
+}
+
+.saldo-valor {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.txt-saldo {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.extrato-bnt {
+    font-size: 12px;
+    text-decoration: underline;
+    margin-top: 30px;
+}
+
+.btns-container {
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.btns-princ-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.btn-single {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-btns);
+}
+
+.btn-single span {
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.btn-icon {
+    height: 50px;
+    width: 70px;
+}
+
+.btn-single > a {
+    width: 100%;
+    height: 100%;
+    color: var(--red-color-main);
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns-sec-container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btns-extend {
+    height: 50px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.container-pix {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.pix-btn {
+    text-decoration: none;
+    background: var(--red-gradient);
+    border-radius: var(--border-radius-btns);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* TELA PIX */
+
+.pix-content-box {
+    height: 100vh;
+    padding: 40px;
+}
+
+.pix-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    height: 80vh;   
+}
+
+.form-pix-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-pix {
+    width: 100%;
+}
+
+.form-pix > input {
+    width: 100%;
+    height: 50px;
+    border-radius: var(--border-radius-btns);
+    border: 2px solid rgba(191, 40, 40, 1);
+    margin: 10px 0;
+    padding: 0 20px;
+}
+
+.form-pix > input[type=button] {
+    cursor: pointer;
+    background-color: rgb(111, 7, 7);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    margin-top: 20px;
+
+}
+
+.form-pix > input:focus {
+    outline: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0; 
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.title-texto {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-texto span {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.return a {
+    color: white;
+    text-decoration: none;
+}

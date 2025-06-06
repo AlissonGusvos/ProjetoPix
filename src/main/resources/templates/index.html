@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a65b8e87b1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{style.css}">
+    <title>Banco Bradesco</title>
+</head>
+<body>
+    <section class="tela-base" id="base-tela-principal">
+
+        <div class="bg-red-content-box main-content-box">
+            <div class="nav-container">
+                <i class="fa-regular fa-circle-user"></i>
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div><!--CONTAINER NAVEGACAO-->
+            <div class="txt-wlcm"><span>Olá, <b>Alisson Gustavo</b></span></div>
+            <div class="saldo-container">
+                <span class="txt-saldo">Saldo:</span>
+                <span class="saldo-valor">R$10.000,00</span>
+                <span class="extrato-bnt">Movimentações na sua conta</span>
+            </div><!--SALDO CONTAINER-->
+        </div><!--CONTAINER BG VERMELHO-->
+
+        <div class="btns-container">
+
+            <div class="btns-princ-container">
+                <div class="btn-single btn-icon"><a th:href="@{/pix}"><i class="fa-brands fa-pix"></i></a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btn-icon"><a href="/" onclick="return false;"><i class="fa-solid fa-money-bill"></i></a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btn-icon"><a href="/" onclick="return false;"><i class="fa-solid fa-barcode"></i></a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btn-icon"><a href="/" onclick="return false;"><i class="fa-solid fa-credit-card"></i></a></div><!--BOTAO SINGLE-->
+            </div><!--CONTAINER DOS BOTOES PRINCIPAIS-->
+
+            <div class="container-pix">
+                <a th:href="@{/pix}" class="pix-btn">
+                    <div class="pix-btn-container">
+                        <span>Faça um PIX</span>
+                    </div><!--PIX BTN CONTAINER-->
+                </a><!--BOTAO PIX-->
+            </div><!--CONTAINER PIX-->
+
+            <div class="btns-sec-container">
+                <div class="btn-single btns-extend w50"><a href="/" onclick="return false;">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                    <span>Transferir</span>
+                </a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btns-extend w50"><a href="/" onclick="return false;">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    <span>Poupança</span>
+                </a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btns-extend w50"><a href="/" onclick="return false;">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Investimentos</span>
+                </a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btns-extend w50"><a href="/" onclick="return false;">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Cartões</span>
+                </a></div><!--BOTAO SINGLE-->
+                <div class="btn-single btns-extend w100"><a href="/" onclick="return false;">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Fale Conosco</span>
+                </a></div><!--BOTAO SINGLE-->
+            </div><!--CONTAINER DOS BOTOES SECUNDARIOS-->
+
+        </div><!--CONTAINER BOTOES-->
+
+    </section><!--TELA BASE-->
+</body>
+</html>
