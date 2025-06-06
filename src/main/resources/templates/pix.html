@@ -17,11 +17,11 @@
                     <span>Área PIX</span>
                 </div><!--TITULO PIX-->
                 <div class="form-pix-container">
-                    <form method="post" action="/pix" class="form-pix">
+                    <form method="post" th:action="@{/pix}" class="form-pix">
 
-                        <input type="text" id="chave-pix" name="chave-pix" placeholder="Chave Pix">
-                        <input type="number" id="valor-pix" name="valor-pix" placeholder="Valor">
-                        <input type="button" value="Enviar Pix" name="acao">
+                        <input type="text" id="chave-pix" name="chave" placeholder="Chave Pix" required>
+                        <input type="number" id="valor-pix" name="valor" placeholder="Valor" required>
+                        <input type="submit" value="Enviar Pix" name="acao">
 
                     </form>
                 </div><!--CONTAINER DO FOMRULARIO PIX-->

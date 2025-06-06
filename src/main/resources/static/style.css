@@ -196,7 +196,7 @@ section#base-tela-principal {
     padding: 0 20px;
 }
 
-.form-pix > input[type=button] {
+.form-pix > input[type=submit] {
     cursor: pointer;
     background-color: rgb(111, 7, 7);
     color: #fff;
