@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ContaController {
 
+    @Autowired
+    private ContaService contaService;
+
     @GetMapping("/")
     public String home(Model model){
+        Conta infoMainUser = contaService.mainUser();
+        model.addAttribute("user",infoMainUser);
+
         return "index";
     }
 
-    @Autowired
-    private ContaService contaService;
 
 }

@@ -16,10 +16,10 @@
                 <i class="fa-regular fa-circle-user"></i>
                 <i class="fa-solid fa-bars-staggered"></i>
             </div><!--CONTAINER NAVEGACAO-->
-            <div class="txt-wlcm"><span>Olá, <b>Alisson Gustavo</b></span></div>
+            <div class="txt-wlcm"><span>Olá, <b th:text="${user.nome}"></b></span></div>
             <div class="saldo-container">
                 <span class="txt-saldo">Saldo:</span>
-                <span class="saldo-valor">R$10.000,00</span>
+                <span class="saldo-valor" th:text="${user.saldo}"></span>
                 <span class="extrato-bnt">Movimentações na sua conta</span>
             </div><!--SALDO CONTAINER-->
         </div><!--CONTAINER BG VERMELHO-->

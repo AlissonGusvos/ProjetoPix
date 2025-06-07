@@ -1,9 +1,13 @@
 package com.projetopix.ProjetoPix.service;
 
 import com.projetopix.ProjetoPix.entity.Conta;
+import com.projetopix.ProjetoPix.entity.Transacao;
 import com.projetopix.ProjetoPix.repository.ContaRepository;
+import com.projetopix.ProjetoPix.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TransacaoService {
@@ -12,15 +16,30 @@ public class TransacaoService {
     private ContaRepository contaRepository;
     @Autowired
     private ContaService contaService;
+    @Autowired
+    private TransacaoRepository transacaoRepository;
 
     public Conta validarChave(String chave){
         return contaRepository.findByCpf(chave)
-                .orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+                .orElseThrow(() -> new RuntimeException("CONTA NÃO ENCONTRADA"));
     }
+
+    public List<Transacao> pegarTransacoes(String cpf) {
+        Conta contaDestino = validarChave(cpf);
+        return transacaoRepository.findByIdContaDestino(contaDestino.getId());
+    }
+
 
     public boolean transferir(String chave, Double valor){
         Conta mainUser = contaService.mainUser();
         Conta contaDestino = validarChave(chave);
+
+        if(valor > mainUser.getLimite_transferencia()){
+            return false;
+        }
+        else if(valor > mainUser.getSaldo()){
+            return false;
+        }
 
         contaDestino.setSaldo(contaDestino.getSaldo() + valor);
         contaRepository.save(contaDestino);
