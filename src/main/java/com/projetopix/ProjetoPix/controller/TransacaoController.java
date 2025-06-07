@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,20 +28,41 @@ public class TransacaoController {
         return "redirect:/";
     }*/
 
-    @PostMapping("/pix")
-    @ResponseBody
-    public Object transferirEListarTransacoes(@RequestParam String chave, @RequestParam Double valor) {
-        boolean sucesso = transacaoService.transferir(chave, valor);
+    private List<Transacao> ultimasTransacoes;
 
-        if (!sucesso) {
-            return Collections.singletonMap("erro", "Saldo ou limite insuficiente");
+    @PostMapping("/pix")
+    public String transacao(@RequestParam String chave, @RequestParam Double valor) {
+        ultimasTransacoes = transacaoService.pegarTransacoes(chave);
+
+        // Verifica se existem valores semelhantes no histórico
+        if (transacaoService.validarTransferencia(ultimasTransacoes)) {
+            // Aqui já bloqueia a transferência, retornando para a página com erro
+            return "redirect:/pix?erro=valoresSemelhantes";
         }
 
-        // Buscar as transações relacionadas à chave (CPF)
-        List<Transacao> transacoes = transacaoService.pegarTransacoes(chave);
+        boolean sucesso = transacaoService.transferir(chave, valor);
 
-        // Retornar as transações em JSON
-        return transacoes;
+        if (sucesso) {
+            ultimasTransacoes = transacaoService.pegarTransacoes(chave);
+        } else {
+            return "redirect:/pix?erro=transferenciaSuspeita";
+        }
+
+        return "redirect:/";
     }
+
+    // GETTER DA LISTA
+    public List<Transacao> getUltimasTransacoes() {
+        return ultimasTransacoes;
+    }
+
+    // ROTA PARA TESTE DE LISTA DE TRANSAÇÕES
+    /*
+    @GetMapping("/transacoes-recentes")
+    @ResponseBody
+    public List<Transacao> transacoesRecentes() {
+        return ultimasTransacoes != null ? ultimasTransacoes : new ArrayList<>();
+    }
+     */
 
 }

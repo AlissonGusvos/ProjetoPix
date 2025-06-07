@@ -50,5 +50,22 @@ public class TransacaoService {
         return true;
     }
 
+    public boolean validarTransferencia(List<Transacao> transacoes) {
+        final double tolerancia = 3;
+
+        for (int i = 0; i < transacoes.size(); i++) {
+            double valorI = transacoes.get(i).getValor();
+
+            for (int j = i + 1; j < transacoes.size(); j++) {
+                double valorJ = transacoes.get(j).getValor();
+
+                if (Math.abs(valorI - valorJ) <= tolerancia) {
+                    return true; // Achou valores semelhantes
+                }
+            }
+        }
+        return false;
+    }
+
 
 }
