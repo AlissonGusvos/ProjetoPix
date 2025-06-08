@@ -30,15 +30,14 @@ public class TransacaoService {
     }
 
 
-    public boolean transferir(String chave, Double valor){
+    public String transferir(String chave, Double valor) {
         Conta mainUser = contaService.mainUser();
         Conta contaDestino = validarChave(chave);
 
-        if(valor > mainUser.getLimite_transferencia()){
-            return false;
-        }
-        else if(valor > mainUser.getSaldo()){
-            return false;
+        if (valor > mainUser.getLimite_transferencia()) {
+            return "limiteExcedido";
+        } else if (valor > mainUser.getSaldo()) {
+            return "saldoInsuficiente";
         }
 
         contaDestino.setSaldo(contaDestino.getSaldo() + valor);
@@ -47,8 +46,9 @@ public class TransacaoService {
         mainUser.setSaldo(mainUser.getSaldo() - valor);
         contaRepository.save(mainUser);
 
-        return true;
+        return "sucesso";
     }
+
 
     public boolean validarTransferencia(List<Transacao> transacoes) {
         final double tolerancia = 3;

@@ -1,6 +1,8 @@
 package com.projetopix.ProjetoPix.controller;
 
+import com.projetopix.ProjetoPix.entity.Conta;
 import com.projetopix.ProjetoPix.entity.Transacao;
+import com.projetopix.ProjetoPix.service.ContaService;
 import com.projetopix.ProjetoPix.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class TransacaoController {
     @Autowired
     private TransacaoService transacaoService;
 
+    @Autowired
+    private ContaService contaService;
+
     @GetMapping("/pix")
     public String pix(Model model){
         return "pix";
@@ -31,25 +36,37 @@ public class TransacaoController {
     private List<Transacao> ultimasTransacoes;
 
     @PostMapping("/pix")
-    public String transacao(@RequestParam String chave, @RequestParam Double valor) {
-        ultimasTransacoes = transacaoService.pegarTransacoes(chave);
+    public String transacao(@RequestParam String chave,
+                            @RequestParam Double valor,
+                            @RequestParam(required = false) Boolean confirmar) {
 
-        // Verifica se existem valores semelhantes no histórico
-        if (transacaoService.validarTransferencia(ultimasTransacoes)) {
-            // Aqui já bloqueia a transferência, retornando para a página com erro
-            return "redirect:/pix?erro=valoresSemelhantes";
+        // Se ainda não confirmou e os valores são suspeitos
+        if (confirmar == null || !confirmar) {
+            List<Transacao> ultimasTransacoes = transacaoService.pegarTransacoes(chave);
+
+            if (transacaoService.validarTransferencia(ultimasTransacoes)) {
+                return "redirect:/pix?erro=valoresSemelhantes&chave=" + chave + "&valor=" + valor;
+            }
         }
 
-        boolean sucesso = transacaoService.transferir(chave, valor);
+        boolean sucesso = Boolean.parseBoolean(transacaoService.transferir(chave, valor));
 
-        if (sucesso) {
-            ultimasTransacoes = transacaoService.pegarTransacoes(chave);
-        } else {
-            return "redirect:/pix?erro=transferenciaSuspeita";
+        if (!sucesso) {
+            Conta mainUser = contaService.mainUser();
+            if (valor > mainUser.getSaldo()) {
+                return "redirect:/pix?erro=saldoInsuficiente";
+            } else if (valor > mainUser.getLimite_transferencia()) {
+                return "redirect:/pix?erro=limiteExcedido";
+            }
+            return "redirect:/pix?erro=transferenciaFalhou";
         }
 
         return "redirect:/";
     }
+
+
+
+
 
     // GETTER DA LISTA
     public List<Transacao> getUltimasTransacoes() {
