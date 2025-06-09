@@ -39,32 +39,32 @@ public class TransacaoController {
     public String transacao(@RequestParam String chave,
                             @RequestParam Double valor,
                             @RequestParam(required = false) Boolean confirmar) {
+        try {
+            if (confirmar == null || !confirmar) {
+                List<Transacao> ultimasTransacoes = transacaoService.pegarTransacoes(chave);
 
-        // Se ainda não confirmou e os valores são suspeitos
-        if (confirmar == null || !confirmar) {
-            List<Transacao> ultimasTransacoes = transacaoService.pegarTransacoes(chave);
-
-            if (transacaoService.validarTransferencia(ultimasTransacoes)) {
-                return "redirect:/pix?erro=valoresSemelhantes&chave=" + chave + "&valor=" + valor;
+                if (transacaoService.validarTransferencia(ultimasTransacoes)) {
+                    return "redirect:/pix?erro=valoresSemelhantes&chave=" + chave + "&valor=" + valor;
+                }
             }
-        }
 
-        boolean sucesso = Boolean.parseBoolean(transacaoService.transferir(chave, valor));
+            transacaoService.transferir(chave, valor);
 
-        if (!sucesso) {
-            Conta mainUser = contaService.mainUser();
-            if (valor > mainUser.getSaldo()) {
-                return "redirect:/pix?erro=saldoInsuficiente";
-            } else if (valor > mainUser.getLimite_transferencia()) {
+            return "redirect:/";
+
+        } catch (RuntimeException e) {
+            String msg = e.getMessage();
+            if ("limiteExcedido".equals(msg)) {
                 return "redirect:/pix?erro=limiteExcedido";
+            } else if ("saldoInsuficiente".equals(msg)) {
+                return "redirect:/pix?erro=saldoInsuficiente";
+            } else if ("CONTA NÃO ENCONTRADA".equals(msg)) {
+                return "redirect:/pix?erro=contaNaoEncontrada";
+            } else {
+                return "redirect:/pix?erro=transferenciaFalhou";
             }
-            return "redirect:/pix?erro=transferenciaFalhou";
         }
-
-        return "redirect:/";
     }
-
-
 
 
 
